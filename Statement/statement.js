@@ -1,30 +1,14 @@
-const http = require("http");
 const ws = require("ws");
 const statements = require("./endlessStatements");
 const baseStatement = require("./baseStatement");
+const config = require("./config")
+const print = require("./print")
 
 const server = new ws.Server({ port: 9000 });
 let isPrinting = false;
 
-const printer1 = {
-  host: "127.0.0.1",
-  port: "8080",
-  path: "/tm_series1",
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain; charset=utf-8"
-  }
-};
-
-const printer2 = {
-  host: "127.0.0.1",
-  port: "8081",
-  path: "/tm_series1",
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain; charset=utf-8"
-  }
-};
+const printer1 = config.printer1
+const printer2 = config.printer2
 
 const main = async () => {
 
@@ -47,16 +31,6 @@ const main = async () => {
 
 const printEndless = () => {
 
-};
-
-const print = (text, config) => {
-  const req = http.request(config);
-  const body = {
-    text,
-    time: Date.now() + 500
-  };
-  req.write(JSON.stringify(body));
-  req.end();
 };
 
 main();
