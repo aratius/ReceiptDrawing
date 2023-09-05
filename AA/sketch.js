@@ -6,8 +6,10 @@ const SEVENELEVEN_TEXTS = "ARS";
 const COLUMN_FILL = 42;
 const PAPER_WIDTH = 80;
 const LINE_HEIGHT = 4;
-const PHYSICAL_WIDTH = 240;
-const PHYSICAL_HEIGHT = 400;
+const PHYSICAL_WIDTH = 720;
+const aspect = 500 / 876;
+const PHYSICAL_HEIGHT = 720 / aspect;
+const imgPath = "imgs/thai.jpg";
 let width, height;
 let cnt = 0;
 
@@ -28,7 +30,7 @@ function physicalWidthToColumn(w) {
 }
 
 function preload() {
-  img = loadImage("imgs/possible.jpg"); // あなたの画像へのパスを設定
+  img = loadImage(imgPath); // あなたの画像へのパスを設定
 }
 
 function setup() {
