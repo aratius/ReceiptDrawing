@@ -2,12 +2,12 @@ let img;
 let brightnessMatrix = [];
 
 const AA_TEXTS = "MWN$@#&B89EGA6mK5HRkbYT43V0JL7gpaseyxznocvjIftr1li*:;,.";
-const SEVENELEVEN_TEXTS = "SEVENELEVEN";
+const SEVENELEVEN_TEXTS = "ARS";
 const COLUMN_FILL = 42;
 const PAPER_WIDTH = 80;
 const LINE_HEIGHT = 4;
-const PHYSICAL_WIDTH = 3600;
-const PHYSICAL_HEIGHT = 1600;
+const PHYSICAL_WIDTH = 240;
+const PHYSICAL_HEIGHT = 400;
 let width, height;
 let cnt = 0;
 
@@ -28,7 +28,7 @@ function physicalWidthToColumn(w) {
 }
 
 function preload() {
-  img = loadImage("imgs/711.jpg"); // あなたの画像へのパスを設定
+  img = loadImage("imgs/possible.jpg"); // あなたの画像へのパスを設定
 }
 
 function setup() {
