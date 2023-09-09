@@ -7,9 +7,9 @@ const COLUMN_FILL = 42;
 const PAPER_WIDTH = 80;
 const LINE_HEIGHT = 4;
 const PHYSICAL_WIDTH = 720;
-const aspect = 500 / 3502;
+const aspect = 1248 / 3234;
 const PHYSICAL_HEIGHT = 720 / aspect;
-const imgPath = "imgs/sevenars.jpg";
+const imgPath = "imgs/takumi.jpg";
 let width, height;
 let cnt = 0;
 
