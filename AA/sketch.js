@@ -6,11 +6,11 @@ const SEVENELEVEN_TEXTS = "ARS";
 const COLUMN_FILL = 42;
 const PAPER_WIDTH = 80;
 const LINE_HEIGHT = 4;
-const PHYSICAL_WIDTH = 720;
-const aspect = 1248 / 3234;
-const PHYSICAL_HEIGHT = 720 / aspect;
-const imgPath = "imgs/takumi.jpg";
-let width, height;
+const PHYSICAL_WIDTH = 1440;  //
+const aspect = 623 / 1652;
+const PHYSICAL_HEIGHT = PHYSICAL_WIDTH / aspect;
+const imgPath = "imgs/711_2.jpg";
+let column, row;
 let cnt = 0;
 
 function rowToPhysicalHeight(row) {
@@ -34,11 +34,12 @@ function preload() {
 }
 
 function setup() {
-  width = physicalWidthToColumn(PHYSICAL_WIDTH);
-  height = physicalheightToRow(PHYSICAL_HEIGHT);
-  console.log(`img:w ${width}, img:h ${height}, physical:w ${columnToPhysicalWidth(width)}, physical:h ${rowToPhysicalHeight(height)}`);
-  createCanvas(width, height);
-  img.resize(width, height); // 画像を420x420ピクセルにリサイズ
+  column = physicalWidthToColumn(PHYSICAL_WIDTH);
+  row = physicalheightToRow(PHYSICAL_HEIGHT);
+  console.log(PHYSICAL_HEIGHT, row);
+  console.log(`img:w ${column}, img:h ${row}, physical:w ${columnToPhysicalWidth(column)}, physical:h ${rowToPhysicalHeight(row)}`);
+  createCanvas(column, row);
+  img.resize(column, row); // 画像を420x420ピクセルにリサイズ
   img.loadPixels(); // 画像のピクセルデータをロード
 
   for (let x = 0; x < img.width; x++) {
@@ -68,29 +69,38 @@ function logFormatted() {
   let texts = [];  // シートごとのテキスト
   const w = brightnessMatrix.length;
   for (let x = 0; x < w; x += COLUMN_FILL) {
-    let brightnessArr = [];  // シートの輝度配列を印刷する順に並べ替える
+    let blightnessArr = [];  // シートの輝度配列を印刷する順に並べ替える
     const h = brightnessMatrix[x].length;
     for (let y = 0; y < h; y++) {
       for (let i = 0; i < COLUMN_FILL; i++) {
-        brightnessArr.push(brightnessMatrix[x + i][y]);
+        blightnessArr.push(brightnessMatrix[x + i][y]);
       }
     }
     // 輝度配列をAA文字列に変換
-    texts.push(getAAText(brightnessArr));
+    texts.push(getAAText(blightnessArr));
   }
   console.log(JSON.stringify(texts));
 }
 
 // 輝度配列からAAのテキスト配列に変換, ついでに左寄せと改行フォーマット
-function getAAText(brightnessArr) {
+function getAAText(blightnessArr) {
   console.log("getAAText");
   let text = "";
-  for (let i = 0; i < brightnessArr.length; i += COLUMN_FILL) {
+  for (let i = 0; i < blightnessArr.length; i += COLUMN_FILL) {
     let line = "";
+    let black = false;
     for (let j = 0; j < COLUMN_FILL; j++) {
-      const aaPickupIndex = Math.floor(brightnessArr[i + j] * (AA_TEXTS.length - 1));
-      if (aaPickupIndex < 8) line += SEVENELEVEN_TEXTS[cnt++ % SEVENELEVEN_TEXTS.length];
-      else line += AA_TEXTS[aaPickupIndex];
+      const blightness = blightnessArr[i + j];
+      const isBlack = blightness < .5;
+      if (isBlack != black) {
+        black = isBlack;
+        line += "`";
+      }
+      if (black) {
+        line += "~";
+      } else {
+        line += "@";
+      }
     }
     text += `|"${line} |\n`;  // 左寄せで太字フォーマット
   }
