@@ -87,13 +87,13 @@ function getAAText(blightnessArr) {
   console.log("getAAText");
   let text = "";
   for (let i = 0; i < blightnessArr.length; i += COLUMN_FILL) {
-    let line = "";
-    let black = false;
+    let line = "`";
+    let black = true;
     for (let j = 0; j < COLUMN_FILL; j++) {
       const blightness = blightnessArr[i + j];
-      const blightnessMin = .3;
+      const blightnessMin = .1;
       const blightnessMax = .9;
-      const isBlack = blightness < blightnessMin;
+      const isBlack = blightness > blightnessMax;
       if (isBlack != black) {
         black = isBlack;
         line += "`";
@@ -101,11 +101,12 @@ function getAAText(blightnessArr) {
       if (black) {
         line += "~";
       } else {
-        const isWhite = blightness > blightnessMax;
+        const isWhite = blightness < blightnessMin;
         if (isWhite) line += "~";
         else {
           const blightnessNorm = (blightness - blightnessMin) / (blightnessMax - blightnessMin);
-          line += ["@", "0", "."][Math.floor(blightnessNorm * 3)];
+          line += [".", "0", "@"][Math.floor(blightnessNorm * 3)];
+          // line += ["@", "0", "."][Math.floor(blightnessNorm * 3)];
         }
       }
     }
