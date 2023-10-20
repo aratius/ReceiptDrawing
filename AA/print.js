@@ -1,7 +1,7 @@
 const http = require("http");
 const texts = require("./text.json");
 
-const range = [40, 50];  // 0 - 4
+const range = [0, 1];  // 0 - 4
 const CAPITAL_INTERVAL = 10 * 1000;  // 書き換える
 
 const main = async () => {
@@ -24,8 +24,8 @@ const sleep = async (t) => {
 const print = (text) => {
   const req = http.request(
     {
-      host: "192.168.0.15",
-      port: "8080",
+      host: "127.0.0.1",
+      port: "8081",
       path: "/tm_series1",
       method: "POST",
       headers: {
@@ -37,7 +37,7 @@ const print = (text) => {
     text,
     time: Date.now() + 500
   };
-  req.write(JSON.stringify(body));
+  req.write(JSON.stringify(text));
   req.end();
 };
 
