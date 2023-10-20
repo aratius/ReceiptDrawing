@@ -11,8 +11,14 @@ const main = async () => {
   for (let i = range[0]; i < Math.min(range[1], texts.length); i++) {
     print(`${i}\n-\n\n`);
     await sleep(1000);
-    print(texts[i].replace('\\"', '"'));
-    await sleep(CAPITAL_INTERVAL);
+    const res = texts[i].replace('\\"', '"');
+    const resSplit = res.split("\n");
+    const step = 100;
+    for (let j = 0; j < resSplit.length; j += step) {
+      print(resSplit.slice(j, j + step).join(""));
+      await sleep(10 * 1000);
+    }
+    // await sleep(CAPITAL_INTERVAL);
     print("\n\n\n=");
     await sleep(1000);
   }
