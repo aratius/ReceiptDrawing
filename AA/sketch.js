@@ -102,6 +102,7 @@ function getAAText(blightnessArr) {
         line += blightness > .9 ? "~" : "@";
       }
     }
+    if (black) line += "`";
     text += `|"${line} |\n`;  // 左寄せで太字フォーマット
   }
   return text;
